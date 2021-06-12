@@ -18,36 +18,47 @@ let candidateAnswers = [];
 function askForName() {
   // TODO 1.1b: Ask for candidate's name //
   const input = require('readline-sync');
-  candidateName = input.question("What is your name?\n ");
+  candidateName = input.question("What is your name? ");
 }
 
 function askQuestion() {
   // TODO 1.2b: Ask candidate the question and assign the response as candidateAnswer //
   const input = require('readline-sync');
   // candidateAnswer = input.question(question);
+  let feedback = "You got wrong!";
   for (let i = 0; i < questions.length; i++){
-    candidateAnswers.push(input.question(questions[i]));
+    let index = i+1;
+    candidateAnswers.push(input.question(index+") "+questions[i]));
+    feedback = "You got wrong!";
+    if (candidateAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()){
+      feedback = "You got right!";
+    }
+    console.log(`Your Answer: ${candidateAnswers[i]}`
+    +`\nCorrect Answer: ${correctAnswers[i]}`
+    +`\n${feedback}`
+    +`\n`);
   }
 }
 
 function gradeQuiz(candidateAnswers) {
 
-  // TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly // 
-  let feedback = "Correct answer!";
+  // TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly //  
   // if (candidateAnswer !== correctAnswer){
   //   feedback = "Wrong answer";
   // }
   // console.log(feedback);
+  let grade = candidateAnswers.length;    
   for (let i = 0; i < questions.length; i++){
-    feedback = "Correct answer!";
-    if (candidateAnswers[i].toLowerCase !== correctAnswers[i].toLowerCase){
-      feedback = "Wrong answer";
-    }
-    console.log(`${candidateAnswers[i]} ?= ${correctAnswers[i]}, ${feedback}`);
+    if (candidateAnswers[i].toLowerCase() !== correctAnswers[i].toLowerCase()){
+      grade--;
+    }    
   }
-  let grade;
-  
-
+  let status = "PASSED";
+  let percentage = Number(grade)*100/candidateAnswers.length; 
+  if (percentage < 80){
+    status = "FAILED";
+  }
+  console.log(`>>> Overall Grade: ${percentage}% (${grade} of ${candidateAnswers.length} responses correct) <<<\n>>> Status: ${status} <<<`);
   return grade;
 }
 
