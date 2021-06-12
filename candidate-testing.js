@@ -59,7 +59,7 @@ function gradeQuiz(candidateAnswers) {
     status = "FAILED";
   }
   console.log(`>>> Overall Grade: ${percentage}% (${grade} of ${candidateAnswers.length} responses correct) <<<\n>>> Status: ${status} <<<`);
-  return grade;
+  return precentage;
 }
 
 function runProgram() {
