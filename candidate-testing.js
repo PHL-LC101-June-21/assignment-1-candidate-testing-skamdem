@@ -2,7 +2,7 @@ const input = require('readline-sync');
 
 // TODO 2: modify your quiz app to ask 5 questions //
 let candidateName = '';
-let question = '';
+let question = 'Who was the first American woman in space? ';
 let correctAnswer = "Sally Ride";
 let candidateAnswer = '';
 
