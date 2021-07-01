@@ -17,21 +17,21 @@ let candidateAnswers = [];
 
 function askForName() {
   // TODO 1.1b: Ask for candidate's name //
-  const input = require('readline-sync');
+  //const input = require('readline-sync');
   candidateName = input.question("What is your name? ");
 }
 
 function askQuestion() {
   // TODO 1.2b: Ask candidate the question and assign the response as candidateAnswer //
-  const input = require('readline-sync');
+  //const input = require('readline-sync');
   // candidateAnswer = input.question(question);
   let feedback = "You got wrong!";
-  for (let i = 0; i < questions.length; i++){
+  for (let i = 0; i < questions.length; i++){//5
     let index = i+1;
     candidateAnswers.push(input.question(index+") "+questions[i]));
     feedback = "You got wrong!";
     if (candidateAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()){
-      feedback = "You got right!";
+      feedback = "You got right!"; //SAlIy RIdE === Sally Ride
     }
     console.log(`Your Answer: ${candidateAnswers[i]}`
     +`\nCorrect Answer: ${correctAnswers[i]}`
