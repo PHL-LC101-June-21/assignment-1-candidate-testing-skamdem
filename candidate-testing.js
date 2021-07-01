@@ -3,82 +3,57 @@ const input = require('readline-sync');
 // TODO 2: modify your quiz app to ask 5 questions //
 
 // TODO 1.1a: Define candidateName // 
-let candidateName = "";
-// TODO 1.2a: Define question, correctAnswer, and candidateAnswer //
 let question = "Who was the first American woman in space? ";
 let correctAnswer = "Sally Ride";
-let candidateAnswer;
-let questionOne = "Who was the first American woman in space?";
-let questionTwo = "True or False: 5 Kilometers == 5000 meters?";
-let questionThree = "(5+3)/2*10 = ?";
-let questionFour = "Given the array [8, 'Orbit', 'Trajectory', 45], what entry is at index 2?";
-let questionFive = "What is the minimum crew size for the ISS?";
-const questions = [questionOne, questionTwo, questionThree, questionFour, questionFive];
-const correctAnswer1 = "Sally Ride";
-const correctAnswer2 = "True";
-const correctAnswer3 = "40";
-const correctAnswer4 = "Trajectory";
-const correctAnswer5 = "3";
-let correctAnswers = [correctAnswer1, correctAnswer2, correctAnswer3, correctAnswer4, correctAnswer5];
-let candidateAnswer1;
-let candidateAnswer2;
-let candidateAnswer3;
-let candidateAnswer4;
-let candidateAnswer5;
-let candidateAnswers = [candidateAnswer1, candidateAnswer2, candidateAnswer3,candidateAnswer4,candidateAnswer5];
-let questionOrder = ["first","second","third","fourth","fifth"];
-let grade = 0;
+let candidateAnswer = "";
+let candidateName = " ";
+// TODO 1.2a: Define question, correctAnswer, and candidateAnswer //
+let candidateAnswers = [];
+let correctAnswers = ['Sally Ride', 'True', '40', 'Trajectory', '3'];
+let questions = ['Who was the first American woman in space? ', 'Ture or False: 5 kilometers = 5000 meters. ', '(5+3)/2*10 = ', 'Given the array [8, \'Orbit\', \'Trajectory\', 45], what entry is at index 2? ', 'What is the minimum crew size for the ISS? '];
 
 function askForName() {
   // TODO 1.1b: Ask for candidate's name //
-candidateName = input.question("What is your name? " )
+ let candidateName = input.question("Enter your name: ");
+  console.log("Hello, " + candidateName);
 }
-  // TODO 1.2b: Ask candidate the question and assign the response as candidateAnswer //
- function askQuestion() {
-  
- let i = 0; 
-  while (i < 5) {
+
+function askQuestions() { 
+  for (let i = 0; i < 5; i++ ){
     candidateAnswers[i] = input.question(questions[i]);
-    i++;
+    console.log(`Your Answer: ${candidateAnswers[i]}\nCorrect Answer: ${correctAnswers[i]}`);
   }
-//candidateAnswer = input.question(question)
-//console.log( "you have answered " + candidateAnswer)
+  return candidateAnswers;
 }
 
 function gradeQuiz(candidateAnswers) {
 
- //TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly // 
+  // TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly // 
+  
+  let grade = 0
 
-
- let scoreOutput = 0; 
-  while (scoreOutput < 5) {
-  console.log(
-  `The ${questionOrder[scoreOutput]} question was:
-   "${questions[scoreOutput]}" 
-   Your answer was: "${candidateAnswers[scoreOutput]}" 
-   The correct answer was: "${correctAnswers[scoreOutput]}"`);
-    scoreOutput++;}
-  for (let i = 0; i < 5; i++) 
-  { if (candidateAnswers[i]==correctAnswers[i]) { 
-    grade++} else { grade;
+  for (let i = 0; i < 5; i++){
+    if (candidateAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()){
+      grade = grade + 1;
     }
-   }
- let finalScore = ((grade / 5) * 100);
- console.log(`${candidateName}, of the 5 Questions you answered ${grade} of them correctly`);
- console.log(` Your final score for this quiz is ${finalScore}%`)
- if (finalScore >= 80) {console.log("You have passed the test! Congratulations.");} 
- else {console.log("You have failed the test - but failure is never the end! Try & try again.");}
-console.log();
-return grade;
+  }
+  let gradePercentage = ((grade / 5) * 100);
+  let statusPassFail;
+  if (gradePercentage >= 80){
+    statusPassFail = "Pass";
+  } else if(gradePercentage < 80){
+    statusPassFail = "Fail";
+  } else { 
+    statusPassFail = "ERROR";
+  }
+  console.log(`>>>>>OVERALL GRADE: ${gradePercentage}% (${grade} out of 5 answers correct.)\n>>>>>STATUS: ${statusPassFail}`);
+  return gradePercentage;
 }
-;
 
 function runProgram() {
   askForName();
-  // TODO 1.1c: Ask for candidate's name //
-  
-  askQuestion();
-  gradeQuiz(this.candidateAnswers);
+  askQuestions();
+  gradeQuiz(candidateAnswers);
 }
 
 // Don't write any code below this line //
@@ -93,4 +68,4 @@ module.exports = {
   candidateAnswers: candidateAnswers,
   gradeQuiz: gradeQuiz,
   runProgram: runProgram
-}
+};
